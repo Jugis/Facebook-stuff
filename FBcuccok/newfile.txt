@@ -1,0 +1,4 @@
+/*
+    <button onclick="post()" id="megoszt_gomb"><img src="http://napiforras.hu/facebook-share.jpg"/></button>
+    */
+

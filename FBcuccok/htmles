@@ -1,0 +1,172 @@
+
+        <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script>
+    var acc_token;
+    // initialize and setup facebook js sdk
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1109490145833021',
+            cookie     : true,
+            xfbml      : true,
+            version    : 'v2.8'
+        });
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                document.getElementById('status').innerHTML = 'Csatlakozott a facebookhoz';
+                document.getElementById('login').style.visibility = 'hidden';
+            } else if (response.status === 'not_authorized') {
+                document.getElementById('status').innerHTML = 'Nem vagyunk bejelentkezve'
+                document.getElementById('post').style.visibility = 'hidden';
+                document.getElementById('komment').style.visibility = 'hidden';
+            } else {
+                document.getElementById('status').innerHTML = 'Nem vagy bejelentkezve a facebookba.';
+                document.getElementById('post').style.visibility = 'hidden';
+                document.getElementById('komment').style.visibility = 'hidden';
+            }
+        });
+    };
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/hu_HU/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    function login() {
+        FB.login(function(response) {
+            if (response.status === 'connected') {
+                document.getElementById('status').innerHTML = 'Csatlakozott';
+                document.getElementById('login').style.visibility = 'hidden';
+                acc_token = FB.getAuthResponse()['accessToken'];
+                console.log(acc_token);
+                document.getElementById('post').style.visibility = 'visible';
+                document.getElementById('komment').style.visibility = 'visible';
+            } else if (response.status === 'not_authorized') {
+                document.getElementById('status').innerHTML = 'Nincs bejelentkezve'
+                document.getElementById('post').style.visibility = 'hidden';
+                document.getElementById('komment').style.visibility = 'hidden';
+            } else {
+                document.getElementById('status').innerHTML = 'Nem csatlakozott a Facebookhoz.';
+                document.getElementById('post').style.visibility = 'hidden';
+                document.getElementById('komment').style.visibility = 'hidden';
+            }
+        }, {scope: 'publish_actions'});
+    }
+    // getting basic user info
+
+    // posting on user timeline
+    function post() {
+        var msg = document.getElementById('komment').value;
+
+        FB.api('/me/feed', 'post', {message: msg, link: 'http://napiforras.hu/talalkozo/'}, function(response) {
+            document.getElementById('status').innerHTML = '';
+        });
+    }
+</script>
+
+<div id="status"></div>
+
+<div onclick="login()" id="login"> <img src="http://napiforras.hu/login.png"/> </div>
+
+<p>Ide írd le, hogy te mit tudnál hozni:</p>
+<input type="text" id="komment"/>
+
+<div onclick="post()" id="post"> <img src="http://napiforras.hu/fb-share.png"/> </div>
+</body>
+</html>
+
+
+
+        <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script>
+    var acc_token;
+    // initialize and setup facebook js sdk
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1109490145833021',
+            cookie     : true,
+            xfbml      : true,
+            version    : 'v2.8'
+        });
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                document.getElementById('status').innerHTML = 'Csatlakozott a facebookhoz';
+                document.getElementById('login').style.visibility = 'hidden';
+            } else if (response.status === 'not_authorized') {
+                document.getElementById('status').innerHTML = 'Nem vagyunk bejelentkezve'
+                document.getElementById('post').style.visibility = 'hidden';
+                document.getElementById('komment').style.visibility = 'hidden';
+            } else {
+                document.getElementById('status').innerHTML = 'Nem vagy bejelentkezve a facebookba.';
+                document.getElementById('post').style.visibility = 'hidden';
+                document.getElementById('komment').style.visibility = 'hidden';
+            }
+        });
+    };
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/hu_HU/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    function login() {
+        FB.login(function(response) {
+            if (response.status === 'connected') {
+                document.getElementById('status').innerHTML = 'Csatlakozott';
+                document.getElementById('login').style.visibility = 'hidden';
+                acc_token = FB.getAuthResponse()['accessToken'];
+                console.log(acc_token);
+                document.getElementById('post').style.visibility = 'visible';
+                document.getElementById('komment').style.visibility = 'visible';
+            } else if (response.status === 'not_authorized') {
+                document.getElementById('status').innerHTML = 'Nincs bejelentkezve'
+                document.getElementById('post').style.visibility = 'hidden';
+                document.getElementById('komment').style.visibility = 'hidden';
+            } else {
+                document.getElementById('status').innerHTML = 'Nem csatlakozott a Facebookhoz.';
+                document.getElementById('post').style.visibility = 'hidden';
+                document.getElementById('komment').style.visibility = 'hidden';
+            }
+        }, {scope: 'publish_actions'});
+    }
+    // getting basic user info
+
+    // posting on user timeline
+    function post() {
+        var msg = document.getElementById('komment').value;
+
+        FB.api('/me/feed', 'post', {message: msg, link: 'http://napiforras.hu/talalkozo/'}, function(response) {
+            document.getElementById('status').innerHTML = '';
+        });
+    }
+</script>
+
+<div id="status"></div>
+
+<div onclick="login()" id="login"> <img src="http://napiforras.hu/login.png"/> </div>
+
+<p>Ide írd le, hogy te mit tudnál hozni:</p>
+<input type="text" id="komment"/>
+
+<div onclick="post()" id="post"> <img src="http://napiforras.hu/fb-share.png"/> </div>
+</body>
+</html>
